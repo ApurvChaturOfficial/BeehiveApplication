@@ -40,7 +40,7 @@ function AboutSectionComponent({ Redux }) {
             description={Redux.state.ReceivedObject?.Retrieve?.AboutRetrieve?.comparatively?.subtitle}
             action={{
               type: "internal",
-              route: "/sections/page-sections/page-headers",
+              route: "",
               label: "More About Us",
             }}
           />

@@ -12,8 +12,9 @@ import MKBox from "src/love/iTemplate/components/MKBox";
 import MKTypography from "src/love/iTemplate/components/MKTypography";
 import MKButton from "src/love/iTemplate/components/MKButton";
 import { Link } from "react-router-dom";
+import MKBadge from "src/love/iTemplate/components/MKBadge";
 
-function ExampleCard({ image, name, name2, count, pro, subtitle, links, ...rest }) {
+function ExampleCard({ image, name, name2, count, pro, subtitle, links, badge, ...rest }) {
   const imageTemplate = (
     <MKBox
       bgColor="white"
@@ -34,6 +35,20 @@ function ExampleCard({ image, name, name2, count, pro, subtitle, links, ...rest 
       }}
       {...rest}
     >
+      {badge && (
+        <MKBox position="absolute" top={0} left={0} zIndex={2} p={1}>
+          <MKBadge
+            variant="contained"
+            color="info"
+            badgeContent={badge}
+            container
+            sx={{ mb: 1 }}
+            size="sm"
+            circular
+          />
+        </MKBox>
+      )}
+
       {pro && (
         <MKBox position="absolute" top={0} right={0} zIndex={2} p={1}>
           <svg
@@ -100,25 +115,28 @@ function ExampleCard({ image, name, name2, count, pro, subtitle, links, ...rest 
               {subtitle}
             </MKTypography>
           )}
-          <Grid container spacing={1} justifyContent="start" sx={{ mt: 1 }}>
-            {links && links?.map((each ,index) => {
-              return (
-                <Grid item key={index} >
-                  <MKBox 
-                    component='a'
-                    href={each.url}
-                    target="_blank"
-                    rel="noreferrer"          
-                  >
-                    <MKButton variant="gradient" color="info">
-                      {each.title}
-                    </MKButton>
-                  </MKBox>
-                </Grid>
+
+          {pro ? null : (
+            <Grid container spacing={1} justifyContent="start" sx={{ mt: 1 }}>
+              {links && links?.map((each ,index) => {
+                return (
+                  <Grid item key={index} >
+                    <MKBox 
+                      component='a'
+                      href={each.url}
+                      target="_blank"
+                      rel="noreferrer"          
+                    >
+                      <MKButton variant="gradient" color="info">
+                        {each.title}
+                      </MKButton>
+                    </MKBox>
+                  </Grid>
                 )
-            })
-          }
-          </Grid>
+              })
+            }
+            </Grid>
+          )}
         </MKBox>
       ) : null}
     </MKBox>
